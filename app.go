@@ -1,9 +1,12 @@
 package main
 
 import (
+	"html/template"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
+	"strings"
 
 	gintemplate "github.com/foolin/gin-template"
 	"github.com/gin-gonic/gin"
@@ -44,6 +47,14 @@ func main() {
 	router.GET("/color/:color", func(ctx *gin.Context) {
 		color := ctx.Param("color")
 		data["color"] = color
+		ctx.HTML(http.StatusOK, "index.html", gin.H{"data": data})
+	})
+
+	router.GET("/readlogs/", func(ctx *gin.Context) {
+
+		content, _ := ioutil.ReadFile("app.log")
+		data["log"] = template.HTML(strings.Replace(string(content), "\n", "<br>", -1))
+
 		ctx.HTML(http.StatusOK, "index.html", gin.H{"data": data})
 	})
 
