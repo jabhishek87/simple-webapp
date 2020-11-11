@@ -1,0 +1,10 @@
+<!doctype html>
+<title>Hello from Martini</title>
+<body style="background: {{ .data.color }};">
+<h1>Hello from {{ .data.name }}!</h1>
+
+{{ if .data.log }}
+<h3>Logs</h3>
+<p>{{ .data.log }}</p>
+{{ end }}
+</body>
