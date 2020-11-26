@@ -1,5 +1,5 @@
 apiVersion: v3
-name: py-app-demo
+name: py-app
 appVersion: "0.1"
 description: A helm chart for python flask app for Demo purpose
 version: 0.0.1

@@ -2,19 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: python-simple-webapp
-  name: python-simple-webapp
+    app: {{ .Release.Name }}-{{ .Chart.Name }}-webapp
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-webapp
 spec:
-  replicas: 1
+  replicas: {{ .Values.pyapp.replicaCount}}
   selector:
     matchLabels:
-      app: python-simple-webapp
+      app: {{ .Release.Name }}-{{ .Chart.Name }}-webapp
   template:
     metadata:
       labels:
-        app: python-simple-webapp
+        app: {{ .Release.Name }}-{{ .Chart.Name }}-webapp
     spec:
       containers:
-      - image: abhishekjaiswal/python-app:latest
+      - image: {{ .Values.pyapp.image.repository}}:{{ .Values.pyapp.image.tag}}
         name: python-app
+        env:
+        - name: REDIS_HOST
+          value: {{ .Release.Name }}-{{ .Chart.Name }}-redis.default.svc.cluster.local
         resources: {}

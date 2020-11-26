@@ -2,15 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: python-simple-webapp
-  name: python-simple-webapp-svc
+    app: {{ .Release.Name }}-{{ .Chart.Name }}-webapp
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-svc
 spec:
   ports:
   - port: 80
     protocol: TCP
     targetPort: 8000
   selector:
-    app: python-simple-webapp
+    app: {{ .Release.Name }}-{{ .Chart.Name }}-webapp
   type: LoadBalancer
 status:
   loadBalancer: {}

@@ -1,0 +1,16 @@
+pyapp:
+    replicaCount: 1
+    image:
+        repository: abhishekjaiswal/python-app
+        tag: latest
+    svc:
+        port: 80
+        type: LoadBalancer
+redis:
+    replicaCount: 1
+    image:
+        repository: redis
+        tag: latest
+    svc:
+        port: 6379
+        type: ClusterIP

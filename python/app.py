@@ -44,6 +44,7 @@ def read_file():
 @app.route('/counter')
 def some_def():
     try:
+        app.logger.info(' Redis host= %s', redis_host)
         redis_cache.ping()
         data = "You've visited me {} times.\n".format(redis_cache.incr('hits'))
     except redis.ConnectionError as e:
