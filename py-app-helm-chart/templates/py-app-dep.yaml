@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: python-simple-webapp
+  name: python-simple-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-simple-webapp
+  template:
+    metadata:
+      labels:
+        app: python-simple-webapp
+    spec:
+      containers:
+      - image: abhishekjaiswal/python-app:latest
+        name: python-app
+        resources: {}

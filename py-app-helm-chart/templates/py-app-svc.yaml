@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: python-simple-webapp
+  name: python-simple-webapp-svc
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: python-simple-webapp
+  type: LoadBalancer
+status:
+  loadBalancer: {}
