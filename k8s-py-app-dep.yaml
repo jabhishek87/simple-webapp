@@ -1,0 +1,77 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: python-simple-webapp
+  name: python-simple-webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-simple-webapp
+  template:
+    metadata:
+      labels:
+        app: python-simple-webapp
+    spec:
+      containers:
+      - image: abhishekjaiswal/python-app:latest
+        name: python-app
+        resources: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: python-simple-webapp
+  name: python-simple-webapp-svc
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: python-simple-webapp
+  type: LoadBalancer
+status:
+  loadBalancer: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - image: redis
+        name: redis
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis
+  name: redis
+spec:
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379
+    protocol: TCP
+  selector:
+    app: redis
+  type: ClusterIP
