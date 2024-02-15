@@ -33,8 +33,8 @@ def new_color(appColor):
 
 @app.route('/readlogs')
 def read_file():
-    f = open("app.log")
-    log_content = f.read()
+    with open("app.log") as f:
+        log_content = f.read()
     print(log_content)
     return render_template(
         'index.html', name=socket.gethostname(), color=appColor,
